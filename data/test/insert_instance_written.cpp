@@ -1,13 +1,16 @@
-#include "../inc/ledger_entry.hpp"
+#include "../inc/ledger_entry_file_repository.hpp"
+#include "../../domain/inc/ledger_entry.hpp"
 
-#include <iostream>
-#include <optional>
+#include <string>
 
-using namespace std;
 using namespace ltui;
+using namespace std;
 
 int main()
 {
+  string file_path = "test-file.dat";
+  ledger_entry_file_repository repo { file_path };
+
   auto date = "2020/20/07";
   string title = "My title";
 
@@ -16,7 +19,6 @@ int main()
 
   ledger_entry entry { date, title, { trans1, trans2 }};
 
-  cout << entry;
-
+  repo.insert(entry);
   return 0;
 }

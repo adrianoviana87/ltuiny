@@ -12,4 +12,4 @@ target_compile_features(project_options INTERFACE cxx_std_17)
 enable_testing()
 
 add_subdirectory(domain)
-
+add_subdirectory(data)

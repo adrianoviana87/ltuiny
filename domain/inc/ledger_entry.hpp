@@ -2,10 +2,9 @@
 #define _LTUI_LEDGER_ENTRY_H_
 
 #include "./ledger_transaction.hpp"
-#include <chrono>
 #include <string>
 #include <vector>
-#include <iosfwd>
+#include "./domain_stream_operations.hpp"
 
 namespace ltui
 {
@@ -13,14 +12,14 @@ namespace ltui
   {
     public:
       ledger_entry(
-          std::chrono::system_clock::time_point date,
+          std::string date,
           std::string title,
           std::vector<ledger_transaction> transactions);
     private:
-      std::chrono::system_clock::time_point _date;
+      std::string _date;
       std::string _title;
       std::vector<ledger_transaction> _transactions;
-      friend std::ostream& operator<<(std::ostream& stream, const ledger_entry& instance);
+      friend std::ostream& ::operator<<(std::ostream& stream, const ledger_entry& instance);
   };
 }
 

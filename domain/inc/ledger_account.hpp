@@ -2,7 +2,7 @@
 #define _LTUI_LEDGER_ACCOUNT_H_
 
 #include <string>
-#include <iosfwd>
+#include "./domain_stream_operations.hpp"
 
 namespace ltui
 {
@@ -14,7 +14,7 @@ namespace ltui
       ledger_account(ledger_account&&) = default;
     private:
       std::string _val;
-      friend std::ostream& operator<<(std::ostream& stream, const ledger_account& instance);
+      friend std::ostream& ::operator<<(std::ostream& stream, const ledger_account& instance);
   };
 }
 
