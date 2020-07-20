@@ -18,4 +18,4 @@ target_link_libraries(${PROJECT_NAME}
     project_options
 )
 
-add_library(test)
+add_subdirectory(test)
