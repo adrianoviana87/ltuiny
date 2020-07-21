@@ -2,7 +2,7 @@
 #define _LTUI_LEDGER_AMOUNT_H_
 
 #include <string>
-#include "./domain_stream_operations.hpp"
+#include "./domain_operator_overloading.hpp"
 
 namespace ltui
 {

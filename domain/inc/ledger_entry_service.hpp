@@ -3,6 +3,7 @@
 
 #include "./ledger_entry_repository.hpp"
 #include <memory>
+#include <vector>
 
 namespace ltui
 {
@@ -15,8 +16,11 @@ namespace ltui
       ledger_entry_service(const ledger_entry_service&) = default;
       ledger_entry_service(ledger_entry_service&&) = default;
 
-      void save(const ledger_entry& entry);
+      void save(std::shared_ptr<ledger_entry> entry);
+      std::shared_ptr<ledger_entry> get_last_entry() const;
+      const std::vector<std::shared_ptr<ledger_entry>> get_entries() const;
     private:
+      std::vector<std::shared_ptr<ledger_entry>> _saved_entries;
       std::shared_ptr<ledger_entry_repository> _repo;
   };
 }

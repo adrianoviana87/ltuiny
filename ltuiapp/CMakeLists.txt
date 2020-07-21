@@ -6,11 +6,11 @@ project(ltui_app
 )
 
 add_executable(${PROJECT_NAME}
-  src/view.cpp
-  src/home_view.cpp
-  src/add_invoice_view.cpp
-  src/router.cpp
   src/main.cpp
+  src/home_view.cpp
+  src/router.cpp
+  src/view.cpp
+  src/add_invoice_view.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}

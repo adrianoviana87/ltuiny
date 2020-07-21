@@ -8,4 +8,9 @@ namespace ltui
     : _val(std::move(val))
   {
   }
+
+  std::string ledger_account::to_string() const
+  {
+    return _val;
+  }
 }

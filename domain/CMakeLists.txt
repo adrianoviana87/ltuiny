@@ -11,7 +11,7 @@ add_library(${PROJECT_NAME}
   src/ledger_transaction.cpp
   src/ledger_entry.cpp
   src/ledger_entry_service.cpp
-  src/default_stream_implementation.cpp
+  src/domain_operator_overloading.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}

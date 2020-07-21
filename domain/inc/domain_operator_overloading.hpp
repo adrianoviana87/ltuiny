@@ -16,4 +16,8 @@ std::ostream& operator<<(std::ostream& stream, const ltui::ledger_amount& instan
 std::ostream& operator<<(std::ostream& stream, const ltui::ledger_transaction& instance);
 std::ostream& operator<<(std::ostream& stream, const ltui::ledger_entry& instance);
 
+bool operator<(const ltui::ledger_account& lhs, const ltui::ledger_account& rhs);
+bool operator==(const ltui::ledger_account& lhs, const ltui::ledger_account& rhs);
+bool operator!=(const ltui::ledger_account& lhs, const ltui::ledger_account& rhs);
+
 #endif

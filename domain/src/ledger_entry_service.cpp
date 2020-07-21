@@ -4,16 +4,27 @@
 
 namespace ltui
 {
-  using namespace std;
-
   ledger_entry_service::ledger_entry_service(
-      shared_ptr<ledger_entry_repository> repo)
+      std::shared_ptr<ledger_entry_repository> repo)
     : _repo(move(repo))
   {
   }
 
-  void ledger_entry_service::save(const ledger_entry &entry)
+  void ledger_entry_service::save(std::shared_ptr<ledger_entry> entry)
   {
-    _repo->insert(entry);
+    _repo->insert(*entry);
+    _saved_entries.push_back(entry);
+  }
+
+  std::shared_ptr<ledger_entry> ledger_entry_service::get_last_entry() const
+  {
+    if (_saved_entries.empty())
+      return nullptr;
+    return _saved_entries.back();
+  }
+
+  const std::vector<std::shared_ptr<ledger_entry>> ledger_entry_service::get_entries() const
+  {
+    return _saved_entries;
   }
 }

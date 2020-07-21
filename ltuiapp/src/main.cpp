@@ -5,11 +5,15 @@
 #include "../inc/router.hpp"
 #include <any>
 #include <memory>
+#include "../inc/app_settings.hpp"
 
 using namespace ltui;
 
 int main()
 {
+    auto settings = std::make_shared<app_settings>();
+    settings->default_commodity = "BRL";
+
     auto entry_repo = std::make_shared<ledger_entry_file_repository>("data.dat");
     auto entry_service = std::make_shared<ledger_entry_service>(entry_repo);
 
@@ -19,7 +23,7 @@ int main()
         [&](auto _) { return std::make_shared<home_view>(app_router); })
     .add_route(
         "ledger_entry/new",
-        [&](auto _) { return std::make_shared<add_invoice_view>(entry_service); });
+        [&](auto _) { return std::make_shared<add_invoice_view>(entry_service, settings); });
 
     app_router->navigate("", std::any());
 
