@@ -8,7 +8,7 @@ namespace ltui
     {
         if (_routes.find(path) != _routes.end())
         {
-            auto& view = _routes.at(path)(std::move(route_params));
+            auto view = _routes.at(path)(std::move(route_params));
             view->show();
         }
     }

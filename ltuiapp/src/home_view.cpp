@@ -1,5 +1,6 @@
 #include "../inc/home_view.hpp"
 #include <iostream>
+#include <memory>
 
 using namespace std;
 
@@ -19,7 +20,7 @@ namespace ltui
         cin >> choice;
         if (choice < 0 || choice > 1)
             return read_choice();
-        
+
         return choice;
     }
 

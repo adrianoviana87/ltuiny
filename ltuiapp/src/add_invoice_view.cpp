@@ -10,6 +10,7 @@
 #include <optional>
 #include <iomanip>
 #include <memory>
+#include <algorithm>
 
 using namespace boolinq;
 
@@ -17,30 +18,29 @@ namespace ltui
 {
   std::optional<std::string> read_account_with_existing(const std::vector<std::shared_ptr<ledger_entry>> &existing_entries)
   {
-    auto accounts = from(existing_entries)
-                        .selectMany([](auto &entry) { return entry->transactions; })
-                        .select([](auto &trans) { return &trans->account; })
-                        .distinct()
-                        .toStdVector();
+    auto trans = from(existing_entries)
+                .selectMany([](auto entry) {
+                    return from(entry->transactions)
+                      .select([](auto item) { return item; });
+                  });
 
     auto i = 0;
 
-    for (auto item : accounts)
-    {
+    trans.for_each([&i](auto item) {
       std::cout << '(' << std::setfill(' ') << std::setw(2) << i;
-      std::cout << ") - " << *item;
+      std::cout << ") - " << item->account;
       ++i;
-    }
+    });
 
   pickindex:
     auto choice = input::read<int>("choose account index: ");
     if (!choice)
       return std::nullopt;
 
-    if (*choice < 0 || *choice > accounts.size() - 1)
+    if (*choice < 0 || *choice > trans.count() - 1)
       goto pickindex;
     else
-      return accounts[*choice]->to_string();
+      return trans.elementAt(*choice)->account.to_string();
   }
 
   add_invoice_view::add_invoice_view(
@@ -154,15 +154,20 @@ namespace ltui
     if (!entry)
       return;
 
-    auto trans = from(entry->transactions).select([](auto& t) {
-      ledger_account account(t.account);
-      std::optional<ledger_amount> amount;
-      if (t.value) {
-        amount.emplace(*t.value, t.commodity.value());
-      }
+    std::vector<std::shared_ptr<ledger_transaction>> trans;
+    auto d = std::transform(
+        std::begin(entry->transactions),
+        std::end(entry->transactions),
+        std::back_inserter(trans),
+        [](auto& t) {
+          ledger_account account(t.account);
+          std::optional<ledger_amount> amount;
+          if (t.value) {
+            amount.emplace(*t.value, t.commodity.value());
+          }
 
-      return std::make_shared<ledger_transaction>(ledger_account(t.account), amount);
-    }).toStdVector();
+          return std::make_shared<ledger_transaction>(ledger_account(t.account), amount);
+        });
 
     auto entity = std::make_shared<ledger_entry>(
       entry->date,
