@@ -126,14 +126,14 @@ namespace ltui
   std::optional<entry_dto> add_invoice_view::read_entry()
   {
     std::cout << "--- add entry ---\n";
-    std::optional<std::string> buff = input::read<std::string>("date");
+    std::optional<std::string> buff = input::read<std::string>("date: ");
     if (!buff)
       return std::nullopt;
 
     entry_dto entry;
     entry.date = *buff;
 
-    buff = input::read<std::string>("title");
+    buff = input::read<std::string>("title: ");
     if (!buff)
       return std::nullopt;
     entry.title = *buff;

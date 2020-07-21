@@ -14,14 +14,10 @@ namespace ltui
         std::optional<parsed_t> read(const std::string& prompt)
         {
             std::cout << prompt;
-            std::stringstream ss;
-            std::string s;
-            std::getline(std::cin, s);
+            parsed_t tmp;
+            std::cin >> tmp;
 
-            parsed_t inst;
-            ss >> inst;
-
-            return inst;
+            return tmp;
         }
 
         template<>
