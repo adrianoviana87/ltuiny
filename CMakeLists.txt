@@ -13,3 +13,4 @@ enable_testing()
 
 add_subdirectory(domain)
 add_subdirectory(data)
+add_subdirectory(ltuiapp)
