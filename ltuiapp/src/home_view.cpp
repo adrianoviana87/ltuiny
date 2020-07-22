@@ -6,45 +6,28 @@ using namespace std;
 
 namespace ltui
 {
-    void show_menu()
-    {
-        cout << "--- LTUI ---\n"
-        << "0 - Quit\n"
-        << "1 - Add new transaction\n";
-    }
+  home_view::home_view(std::shared_ptr<router> router)
+    :  view(),
+    _router(std::move(router)),
+    _container(ftxui::Container::Vertical()),
+    _menu()
+  {
+  }
 
-    int read_choice()
-    {
-        cout << "> ";
-        int choice = 0;
-        cin >> choice;
-        if (choice < 0 || choice > 1)
-            return read_choice();
+  void home_view::initialize_ui()
+  {
+    _menu.entries.push_back(L"Add Entry");
+    _menu.entries.push_back(L"Quit");
+    _menu.on_enter = [&]() { this->on_menu_selected(this->_menu.selected); };
+    _container.Add(&_menu);
+    Add(&_container);
+  }
 
-        return choice;
-    }
-
-    home_view::home_view(std::shared_ptr<router> router)
-        : _router(std::move(router))
-    {
-    }
-
-    void home_view::on_show()
-    {
-        int choice = -1;
-        while (true)
-        {
-            show_menu();
-            int choice = read_choice();
-            switch (choice)
-            {
-            case 0:
-                return;
-            case 1:
-                _router->navigate("ledger_entry/new", std::any());
-                break;
-                // TODO: dispatch
-            }
-        }
-    }
+  void home_view::on_menu_selected(int option)
+  {
+    if (option == 0)
+      _router->navigate("ledger_entry/new", std::any());
+    else
+      close();
+  }
 }

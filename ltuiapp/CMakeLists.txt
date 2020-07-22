@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 
+find_package(ftxui REQUIRED)
+find_package(Threads)
+
 project(ltui_app
     LANGUAGES
         CXX
@@ -10,15 +13,18 @@ add_executable(${PROJECT_NAME}
   src/home_view.cpp
   src/router.cpp
   src/view.cpp
-  src/add_invoice_view.cpp
+  src/new_entry_view.cpp
+  src/screen_service.cpp
+  src/text.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
+    project_options
     ltui_domain
     ltui_data
-  PRIVATE
-    project_options
+    ftxui::dom
+    ftxui::component
 )
 
 add_subdirectory(test)

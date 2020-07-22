@@ -5,6 +5,9 @@
 
 #include "../../extern/boolinq.h"
 
+#include "ftxui/screen/screen.hpp"
+#include "ftxui/dom/elements.hpp"
+
 #include <iostream>
 #include <vector>
 #include <optional>
@@ -136,6 +139,18 @@ namespace ltui
 
   std::optional<entry_dto> add_invoice_view::read_entry()
   {
+    using namespace ftxui;
+    auto document =
+      hbox({
+        text(L"left") | bold | border,
+        text(L"middle") | flex | border,
+        text(L"right") | border,
+        });
+    auto screen = Screen::Create(Dimension::Full(), Dimension::Fit(document));
+    Render(screen, document);
+
+    std::cout << screen.ToString();
+
     std::cout << "--- add entry ---\n";
     std::optional<std::string> buff = input::read<std::string>("date: ");
     if (!buff)

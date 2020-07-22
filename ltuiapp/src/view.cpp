@@ -1,9 +1,21 @@
 #include "../inc/view.hpp"
+#include "ftxui/dom/elements.hpp"
 
 namespace ltui
 {
-    void view::show()
-    {
-        this->on_show();
-    }
+  using namespace ftxui;
+
+  view::view()
+  {
+  }
+
+  void view::initialize()
+  {
+    this->initialize_ui();
+  }
+
+  void view::close()
+  {
+    closed();
+  }
 }
