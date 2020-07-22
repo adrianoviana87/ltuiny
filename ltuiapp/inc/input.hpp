@@ -8,28 +8,36 @@
 
 namespace ltui
 {
-    namespace input
-    {
-        template<class parsed_t>
-        std::optional<parsed_t> read(const std::string& prompt)
-        {
-            std::cout << prompt;
-            parsed_t tmp;
-            std::cin >> tmp;
+  namespace input
+  {
+    template<class parsed_t>
+      std::optional<parsed_t> read(const std::string& prompt)
+      {
+        parsed_t tmp;
+        do {
+          std::cin.clear();
+          std::cout << prompt;
+          std::cin >> tmp;
+        } while (!std::cin);
 
-            return tmp;
-        }
+        return tmp;
+      }
 
-        template<>
-        std::optional<std::string> read(const std::string& prompt)
-        {
-            std::cout << prompt;
-            std::string s;
-            std::getline(std::cin, s);
+    template<>
+      std::optional<std::string> read(const std::string& prompt)
+      {
+        std::cin.clear();
+        std::cin.ignore(8, '\n');
 
-            return s;
-        }
-    }
+        std::cout << prompt;
+        std::string s;
+        std::getline(std::cin, s);
+
+        if (s.empty())
+          return std::nullopt;
+        return s;
+      }
+  }
 }
 
 #endif

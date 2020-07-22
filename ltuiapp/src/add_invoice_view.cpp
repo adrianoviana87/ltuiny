@@ -73,6 +73,17 @@ namespace ltui
 
     while (buff = read_transaction())
     {
+      std::cout << "transaction added\n"
+        << buff->account;
+      if (buff->value) {
+        std::cout << "\t\t\t" << *buff->value;
+        if (buff->commodity) {
+          std::cout << ' ' << *buff->commodity;
+        }
+      }
+
+      std::cout << '\n';
+
       trans.push_back(*buff);
     }
 
@@ -175,6 +186,9 @@ namespace ltui
       trans);
 
     _service->save(entity);
+
+    std::cout << "entry saved: \n"
+      << *entity;
   }
 
 } // namespace ltui

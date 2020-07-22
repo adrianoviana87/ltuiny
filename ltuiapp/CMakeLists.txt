@@ -21,3 +21,4 @@ target_link_libraries(${PROJECT_NAME}
     project_options
 )
 
+add_subdirectory(test)
