@@ -34,7 +34,7 @@ void new_entry_view::save_entry() {
                        ledger_account(item.account),
                        ledger_amount(item.value, item.commodity));
                  });
-  auto entry = std::make_shared<ledger_entry>(to_str(c_date.content),
+  auto entry = std::make_shared<ledger_entry>(to_str(c_date.get_content()),
                                               to_str(c_title.content), trans);
 
   _service->save(entry);
@@ -52,15 +52,15 @@ bool new_entry_view::save_transaction() {
     return false;
   }
 
-  auto commodity = c_value.content.empty() ? "" : to_str(c_commodity.content);
+  auto commodity = c_value.get_content().empty() ? "" : to_str(c_commodity.content);
   if (_transaction_index < 0) {
     _transactions.push_back(
-        {to_str(c_account.content), to_str(c_value.content), commodity});
+        {to_str(c_account.content), to_str(c_value.get_content()), commodity});
   } else {
     auto &trans = _transactions.at(_transaction_index);
 
     trans.account = to_str(c_account.content);
-    trans.value = to_str(c_value.content);
+    trans.value = to_str(c_value.get_content());
     trans.commodity = commodity;
   }
 
@@ -93,7 +93,7 @@ void new_entry_view::reset_transaction() {
 
 void new_entry_view::clear_transaction() {
   c_account.content.clear();
-  c_value.content.clear();
+  c_value.clear();
   c_commodity.content.clear();
   _transaction_index = -1;
 }
@@ -121,11 +121,11 @@ void new_entry_view::initialize_ui() {
 
   c_account.on_enter = [this]() { save_transaction(); };
 
-  c_value.on_enter = [this]() {
+  c_value.set_on_enter([this]() {
     if (save_transaction()) {
       OnEvent(Event::ArrowUp);
     }
-  };
+  });
 
   c_commodity.on_enter = [this]() {
     if (save_transaction()) {
@@ -146,7 +146,7 @@ void new_entry_view::initialize_ui() {
   c_transactions.set_items(&_transactions);
   c_transactions.set_on_enter([this](const entry_trans_dto &item) {
     c_account.content = to_wstr(item.account);
-    c_value.content = to_wstr(item.value);
+    c_value.set_content(to_wstr(item.value));
     _transaction_index = c_transactions.get_selected_index();
 
     constexpr auto account_distance = 6;

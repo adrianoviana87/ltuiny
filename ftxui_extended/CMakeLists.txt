@@ -10,8 +10,14 @@ project(ftxui_extended
 
 add_library(${PROJECT_NAME}
   src/button.cpp
+  src/maskinputbase.cpp
+  src/dateinput.cpp
+  src/moneyinput.cpp
   inc/button.hpp
   inc/list.hpp
+  inc/maskinputbase.hpp
+  inc/dateinput.hpp
+  inc/moneyinput.hpp
 )
 
 target_link_libraries(${PROJECT_NAME}

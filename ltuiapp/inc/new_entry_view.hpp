@@ -2,6 +2,8 @@
 #define _LTUI_NEW_ENTRY_VIEW_H_
 
 #include "../../domain/inc/ledger_entry_service.hpp"
+#include "../../ftxui_extended/inc/dateinput.hpp"
+#include "../../ftxui_extended/inc/moneyinput.hpp"
 #include "../../ftxui_extended/inc/button.hpp"
 #include "../../ftxui_extended/inc/list.hpp"
 #include "./app_settings.hpp"
@@ -50,10 +52,10 @@ private:
   ftxui::Button c_save_entry;
   ftxui::Button c_clear_form;
   ftxui::Button c_quit;
-  ftxui::Input c_date;
+  ftxui::DateInput c_date;
   ftxui::Input c_title;
   ftxui::Input c_account;
-  ftxui::Input c_value;
+  ftxui::MoneyInput c_value;
   ftxui::Input c_commodity;
   ftxui::Button c_save_trans;
   ftxui::Button c_cancel_trans;
