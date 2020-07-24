@@ -3,12 +3,10 @@
 
 #include <string>
 
-namespace ltui
-{
-  struct app_settings
-  {
-    std::string default_commodity;
-  };
-}
+namespace ltui {
+struct app_settings {
+  std::string default_commodity;
+};
+} // namespace ltui
 
 #endif

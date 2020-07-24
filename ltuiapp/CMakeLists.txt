@@ -15,8 +15,6 @@ add_executable(${PROJECT_NAME}
   src/view.cpp
   src/new_entry_view.cpp
   src/screen_service.cpp
-  src/button.cpp
-  inc/list.hpp
 )
 
 target_link_libraries(${PROJECT_NAME}
@@ -25,6 +23,7 @@ target_link_libraries(${PROJECT_NAME}
     ltui_crosscutting
     ltui_domain
     ltui_data
+    ftxui_extended
     ftxui::dom
     ftxui::component
 )

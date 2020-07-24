@@ -5,19 +5,24 @@
 
 #include <functional>
 
-namespace ltui
-{
-  class view : public ftxui::Component
-  {
-    public:
-      view();
-      std::function<void()> closed;
-      void initialize();
-      virtual ~view() noexcept = default;
-    protected:
-      void close();
-      virtual void initialize_ui() = 0;
-  };
+namespace ltui {
+class view : public ftxui::Component {
+public:
+  view() = default;
+  view(const view&) = default;
+  view(view&&) noexcept = default;
+  ~view() noexcept override = default;
+  view& operator=(const view&) = default;
+  view& operator=(view&&) noexcept = default;
+
+  void initialize();
+  void set_on_close(std::function<void()> val);
+protected:
+  void close();
+  virtual void initialize_ui() = 0;
+private:
+  std::function<void()> on_close;
+};
 } // namespace ltui
 
 #endif
