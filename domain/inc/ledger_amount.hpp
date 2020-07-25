@@ -2,6 +2,7 @@
 #define _LTUI_LEDGER_AMOUNT_H_
 
 #include "./domain_operator_overloading.hpp"
+#include "../../crosscutting/inc/noexcept.hpp"
 #include <string>
 
 namespace ltui {
@@ -10,9 +11,9 @@ public:
   ledger_amount(std::string val, std::string commodity);
   ledger_amount(const ledger_amount &) = default;
   ledger_amount(ledger_amount &&) = default;
-  ledger_amount &operator=(const ledger_amount &) noexcept = default;
-  ledger_amount &operator=(ledger_amount &&) noexcept = default;
-  ~ledger_amount() noexcept = default;
+  ledger_amount &operator=(const ledger_amount &) NOEXCEPT = default;
+  ledger_amount &operator=(ledger_amount &&) NOEXCEPT = default;
+  ~ledger_amount() NOEXCEPT = default;
 
 private:
   std::string _val;

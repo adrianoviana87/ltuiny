@@ -1,6 +1,7 @@
 #ifndef _LTUI_VIEW_H_
 #define _LTUI_VIEW_H_
 
+#include "../../crosscutting/inc/noexcept.hpp"
 #include "ftxui/component/component.hpp"
 
 #include <functional>
@@ -10,10 +11,10 @@ class view : public ftxui::Component {
 public:
   view() = default;
   view(const view&) = default;
-  view(view&&) noexcept = default;
-  ~view() noexcept override = default;
+  view(view&&) NOEXCEPT = default;
+  ~view() NOEXCEPT override = default;
   view& operator=(const view&) = default;
-  view& operator=(view&&) noexcept = default;
+  view& operator=(view&&) NOEXCEPT = default;
 
   void initialize();
   void set_on_close(std::function<void()> val);

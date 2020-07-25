@@ -2,6 +2,7 @@
 #define _LTUI_LEDGER_ACCOUNT_H_
 
 #include "./domain_operator_overloading.hpp"
+#include "../../crosscutting/inc/noexcept.hpp"
 #include <string>
 
 namespace ltui {
@@ -10,10 +11,10 @@ public:
   explicit ledger_account(std::string val);
   ledger_account(const ledger_account &) = default;
   ledger_account(ledger_account &&) = default;
-  ~ledger_account() noexcept = default;
+  ~ledger_account() NOEXCEPT = default;
   [[nodiscard]] std::string to_string() const;
   ledger_account &operator=(const ledger_account &rhs) = default;
-  ledger_account &operator=(ledger_account &&rhs) noexcept = default;
+  ledger_account &operator=(ledger_account &&rhs) NOEXCEPT = default;
 
 private:
   std::string _val;

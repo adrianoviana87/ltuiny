@@ -9,11 +9,11 @@ public:
   // Constructor.
   MaskInputBase() = default;
   MaskInputBase(MaskInputBase&) = default;
-  MaskInputBase(MaskInputBase&&) noexcept = default;
+  MaskInputBase(MaskInputBase&&) = default;
   ~MaskInputBase() override = default;
 
   MaskInputBase& operator=(const MaskInputBase&) = default;
-  MaskInputBase& operator=(MaskInputBase&&) noexcept = default;
+  MaskInputBase& operator=(MaskInputBase&&) = default;
 
   // Component implementation.
   Element Render() override;

@@ -1,6 +1,7 @@
 #ifndef _LTUI_LEDGER_SERVICE_H_
 #define _LTUI_LEDGER_SERVICE_H_
 
+#include "../../crosscutting/inc/noexcept.hpp"
 #include "./ledger_entry_repository.hpp"
 #include <memory>
 #include <vector>
@@ -14,7 +15,7 @@ public:
   ledger_entry_service(const ledger_entry_service &) = default;
   ledger_entry_service(ledger_entry_service &&) = default;
   ledger_entry_service &operator=(const ledger_entry_service &) = default;
-  ledger_entry_service &operator=(ledger_entry_service &&) noexcept = default;
+  ledger_entry_service &operator=(ledger_entry_service &&) NOEXCEPT = default;
   ~ledger_entry_service() = default;
 
   void save(std::shared_ptr<ledger_entry> entry);

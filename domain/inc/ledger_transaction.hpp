@@ -1,6 +1,7 @@
 #ifndef _LTUI_LEDGER_TRANSACTION_H_
 #define _LTUI_LEDGER_TRANSACTION_H_
 
+#include "../../crosscutting/inc/noexcept.hpp"
 #include "./ledger_account.hpp"
 #include "./ledger_amount.hpp"
 
@@ -17,7 +18,7 @@ public:
   ledger_transaction(const ledger_transaction &) = default;
   ledger_transaction(ledger_transaction &&) = default;
   ledger_transaction& operator=(const ledger_transaction&) = default;
-  ledger_transaction& operator=(ledger_transaction&&) noexcept = default;
+  ledger_transaction& operator=(ledger_transaction&&) NOEXCEPT = default;
   ~ledger_transaction() = default;
 private:
   ledger_account account;

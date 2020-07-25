@@ -2,6 +2,7 @@
 #define _LTUI_FTXUI_LIST_H_
 
 #include "ftxui/component/component.hpp"
+#include "../../crosscutting/inc/noexcept.hpp"
 #include <algorithm>
 #include <memory>
 
@@ -10,11 +11,11 @@ template <class t_item> class List : public Component {
 public:
   List() = default;
   List(const List &) = default;
-  List(List &&) noexcept = default;
+  List(List &&) NOEXCEPT = default;
   ~List() override = default;
 
   List &operator=(const List &) = default;
-  List &operator=(List &&) noexcept = default;
+  List &operator=(List &&) NOEXCEPT = default;
 
   [[nodiscard]] int get_selected_index() const { return selected; }
 
