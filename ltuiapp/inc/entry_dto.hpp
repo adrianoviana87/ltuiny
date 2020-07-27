@@ -2,7 +2,6 @@
 #define _LTUI_ENTRY_DTO_H_
 
 #include <string>
-#include <optional>
 #include <vector>
 
 namespace ltui
@@ -12,6 +11,7 @@ namespace ltui
     std::string account;
     std::string value;
     std::string commodity;
+    double numericValue;
   };
 
   struct entry_dto

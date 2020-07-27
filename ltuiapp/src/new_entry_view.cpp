@@ -3,9 +3,11 @@
 #include "../../domain/inc/ledger_entry.hpp"
 
 #include <algorithm>
+#include <numeric>
 #include <ftxui/dom/elements.hpp>
 #include <memory>
 #include <vector>
+#include <cmath>
 
 #include "../../crosscutting/inc/string-utils.hpp"
 
@@ -52,16 +54,30 @@ bool new_entry_view::save_transaction() {
     return false;
   }
 
-  auto commodity = c_value.get_content().empty() ? "" : to_str(c_commodity.content);
+  const auto commodity = c_value.get_content().empty() ? "" : to_str(c_commodity.content);
+  const double transVal = [&]() {
+    if (c_value.get_content().empty()) {
+      return 0.0;
+    }
+
+    double tmp = 0.0;
+    if (str_parse(to_str(c_value.get_content()), tmp)) {
+      return tmp;
+    }
+
+    return 0.0;
+  }();
+
   if (_transaction_index < 0) {
     _transactions.push_back(
-        {to_str(c_account.content), to_str(c_value.get_content()), commodity});
+        {to_str(c_account.content), to_str(c_value.get_content()), commodity, transVal});
   } else {
     auto &trans = _transactions.at(_transaction_index);
 
     trans.account = to_str(c_account.content);
     trans.value = to_str(c_value.get_content());
     trans.commodity = commodity;
+    trans.numericValue = transVal;
   }
 
   reset_transaction();
@@ -228,17 +244,45 @@ Element new_entry_view::render_header() {
 Element new_entry_view::render_add_transaction() {
   constexpr auto value_width = 15;
   constexpr auto commodity_width = 10;
+  double transTotal = 0.0;
+  transTotal = std::accumulate(
+      std::begin(_transactions),
+      std::end(_transactions),
+      0.0,
+      [](auto total, auto& item) {
+        return total + item.numericValue;
+      });
+
+  // clang-format off
   return window(
       text(L"Add Transaction"),
-      vbox({hbox({vbox({text(L"Account:"), c_account.Render() | border}) |
-                      flex_grow,
-                  vbox({text(L"Value:"), c_value.Render() | border}) |
-                      size(ftxui::WIDTH, ftxui::EQUAL, value_width),
-                  vbox({text(L"Com:"), c_commodity.Render() | border}) |
-                      size(ftxui::WIDTH, ftxui::EQUAL, commodity_width)}),
-            hbox({c_save_trans.Render(), c_cancel_trans.Render(),
-                  c_from_last_trans.Render()})}) |
-          borderWith(c_space));
+      vbox({
+        hbox({
+          vbox({
+            text(L"Account:"),
+            c_account.Render() | border
+          }) | flex_grow,
+          vbox({
+            text(L"Value:"),
+            c_value.Render() | border
+          }) | size(ftxui::WIDTH, ftxui::EQUAL, value_width),
+          vbox({
+            text(L"Com:"),
+            c_commodity.Render() | border
+          }) | size(ftxui::WIDTH, ftxui::EQUAL, commodity_width)
+        }),
+        hbox({
+          c_save_trans.Render(),
+          c_cancel_trans.Render(),
+          c_from_last_trans.Render(),
+          filler() | flex,
+          hbox({
+            text(L"Total: ") | bold,
+            text(std::to_wstring(transTotal))
+          }) | border
+        })
+      }) | borderWith(c_space));
+  // clang-format on
 }
 
 Element new_entry_view::render_transactions() {

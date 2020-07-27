@@ -27,6 +27,13 @@ template <class t_iter> std::string join_str(t_iter beg, t_iter end, char ch) {
 
   return buff;
 }
+
+template<typename t>
+bool str_parse(const std::string& str, t& instance) {
+  std::stringstream ss { str };
+  ss >> instance;
+  return true;
+}
 } // namespace ltui
 
 #endif
