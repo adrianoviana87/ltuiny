@@ -24,6 +24,6 @@ cmake --build .
 ./ltuiapp/ltui_app
 ```
 ## Todo
-- [] Add settings view
-- [] Add ability to view/edit existing transactions from a ledger file
-- [] Add support to commit the configured ledger file if it's on a git repo.
+- [ ] Add settings view
+- [ ] Add ability to view/edit existing transactions from a ledger file
+- [ ] Add support to commit the configured ledger file if it's on a git repo.
