@@ -19,4 +19,5 @@ mkdir build
 cd build
 cmake ..
 cmake --build .
+./ltuiapp/ltui_app
 ```
