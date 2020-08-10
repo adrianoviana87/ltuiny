@@ -1,26 +1,20 @@
 #include "../inc/ledger_entry_file_repository.hpp"
 #include "../../domain/inc/ledger_entry.hpp"
 
-#include <memory>
 #include <fstream>
+#include <memory>
 
-namespace ltui
-{
-  using namespace std;
+namespace ltui {
+using namespace std;
 
-  ledger_entry_file_repository::ledger_entry_file_repository(
-      string file_path)
-    : _file_path(move(file_path))
-  {
-  }
+ledger_entry_file_repository::ledger_entry_file_repository(string file_path)
+    : _file_path(move(file_path)) {}
 
-  void ledger_entry_file_repository::insert(const ledger_entry &entry)
-  {
-    fstream stream(_file_path, ios::app | ios::ate);
+void ledger_entry_file_repository::insert(const ledger_entry &entry) {
+  fstream stream(_file_path, ios::app | ios::ate);
 
-    if (stream.good())
-    {
-      stream << entry;
-    }
+  if (stream.good()) {
+    stream << entry;
   }
 }
+} // namespace ltui

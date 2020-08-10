@@ -3,27 +3,30 @@
 
 #include "./view.hpp"
 
+#include "./screen_service.hpp"
+
 #include <any>
 #include <functional>
 #include <map>
-#include <string>
 #include <memory>
+#include <string>
 
-namespace ltui
-{
-  class router
-  {
-  public:
-    using route_view_activator_t = std::function<std::shared_ptr<view>(std::any)>;
-    using routes_t = std::map<std::string, route_view_activator_t>;
+namespace ltui {
+class router {
+public:
+  using route_view_activator_t = std::function<std::shared_ptr<view>(std::any)>;
+  using routes_t = std::map<std::string, route_view_activator_t>;
 
-    void navigate(const std::string &path, std::any route_params);
+  explicit router(std::shared_ptr<screen_service> scren_srv);
 
-    router& add_route(const std::string& path, route_view_activator_t activator);
+  void navigate(const std::string &path, std::any route_params);
 
-    private:
-      routes_t _routes;
-  };
+  router &add_route(const std::string &path, route_view_activator_t activator);
+
+private:
+  std::shared_ptr<screen_service> _screen_service;
+  routes_t _routes;
+};
 } // namespace ltui
 
 #endif

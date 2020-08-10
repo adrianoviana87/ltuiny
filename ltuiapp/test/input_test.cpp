@@ -2,8 +2,7 @@
 #include <cassert>
 #include <string>
 
-int main()
-{
+int main() {
   auto integer = ltui::input::read<int>("integer: ");
   auto str = ltui::input::read<std::string>("str: ");
 
@@ -13,8 +12,7 @@ int main()
   assert(str.has_value());
   assert(str.value() == "adriano");
 
-  std::cout << "integer: " << *integer << '\n'
-    << "str: " << *str << '\n';
+  std::cout << "integer: " << *integer << '\n' << "str: " << *str << '\n';
 
   return 0;
 }
