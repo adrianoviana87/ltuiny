@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.11)
 
-find_package(ftxui REQUIRED)
-find_package(Threads)
+# find_package(ftxui REQUIRED)
+# find_package(Threads)
 
 project(ftxui_extended
     LANGUAGES
