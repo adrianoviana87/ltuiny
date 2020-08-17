@@ -8,9 +8,9 @@ a simple text-based utility to add a transaction to a [ledger](https://www.ledge
 The project is sill under development but it can already add transactions to a fixed ledger file named `data.dat` on the current directory.
 
 ## Dependencies
-* cmake >= 3.5
+* cmake >= 3.11
 * c++17 compiler
-* [FTXUI](Downloaded automatically when `cmake ..` is run)
+* [FTXUI](https://github.com/ArthurSonzogni/FTXUI) (Downloaded automatically when `cmake ..` is run)
   
 ## How to build
 ```sh
