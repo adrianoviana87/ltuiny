@@ -10,8 +10,7 @@ The project is sill under development but it can already add transactions to a f
 ## Dependencies
 * cmake >= 3.5
 * c++17 compiler
-* [FTXUI](https://github.com/ArthurSonzogni/FTXUI)
-  * I have to include this dependency as a submodule or something like that. For now, you can download the FTXUI repository and install the library.
+* [FTXUI](Downloaded automatically when `cmake ..` is run)
   
 ## How to build
 ```sh
