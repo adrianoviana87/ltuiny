@@ -11,7 +11,7 @@ The project is sill under development but it can already add transactions to a f
 * cmake >= 3.11
 * c++17 compiler
 * [FTXUI](https://github.com/ArthurSonzogni/FTXUI) (Downloaded automatically when `cmake ..` is run)
-  
+
 ## How to build
 ```sh
 git clone https://github.com/adrianoviana87/ltuiny
@@ -20,7 +20,7 @@ mkdir build
 cd build
 cmake ..
 cmake --build .
-./ltuiapp/ltui_app
+./libs/ltuiapp/ltui_app
 ```
 ## Todo
 - [ ] Add settings view
