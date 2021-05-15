@@ -182,19 +182,29 @@ void new_entry_view::initialize_ui() {
   c_quit->set_on_enter([this] { close(); });
 
   auto container = Container::Vertical({
-      c_save_entry,
-      c_clear_form,
-      c_quit,
-      c_usePreviousAccount,
-      c_removeAccountLeaf,
-      c_date,
-      c_title,
-      c_account,
-      c_value,
-      c_commodity,
-      c_save_trans,
-      c_cancel_trans,
-      c_from_last_trans,
+      Container::Horizontal({
+          c_save_entry,
+          c_clear_form,
+          c_quit,
+      }),
+      Container::Horizontal({
+        c_usePreviousAccount,
+        c_removeAccountLeaf,
+      }),
+      Container::Horizontal({
+        c_date,
+        c_title,
+      }),
+      Container::Horizontal({
+        c_account,
+        c_value,
+        c_commodity,
+      }),
+      Container::Horizontal({
+        c_save_trans,
+        c_cancel_trans,
+        c_from_last_trans,
+      }),
       c_transactions,
   });
   Add(container);
