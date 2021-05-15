@@ -1,20 +1,22 @@
 #ifndef LTUI_NEW_ENTRY_VIEW_H
 #define LTUI_NEW_ENTRY_VIEW_H
 
-#include "domain.hpp"
-#include "ftxui-extended.hpp"
+#include <ftxui/component/menu.hpp>
+#include <memory>
+#include <vector>
 #include "./app_settings.hpp"
 #include "./entry_dto.hpp"
 #include "./view.hpp"
+#include "domain.hpp"
+#include "ftxui-extended.hpp"
+#include "ftxui/component/button.hpp"
 #include "ftxui/component/checkbox.hpp"
 #include "ftxui/component/component.hpp"
 #include "ftxui/component/container.hpp"
 #include "ftxui/component/input.hpp"
-#include <ftxui/component/menu.hpp>
-#include <memory>
-#include <vector>
 
 namespace ltui {
+using namespace ftxui;
 class new_entry_view : public view {
 public:
   new_entry_view(std::shared_ptr<ledger_entry_service> service,
@@ -37,31 +39,43 @@ private:
   void clear_transaction();
   void save_entry();
   void clear_form();
-  void log(std::wstring message);
-  void log(const std::string &message);
 
   std::shared_ptr<ledger_entry_service> _service;
   std::shared_ptr<app_settings> _settings;
   std::vector<entry_trans_dto> _transactions;
   int _transaction_index;
 
-  ftxui::Container c_container;
-  ftxui::Button c_save_entry;
-  ftxui::Button c_clear_form;
-  ftxui::Button c_quit;
-  ftxui::DateInput c_date;
-  ftxui::Input c_title;
-  ftxui::Input c_account;
-  ftxui::MoneyInput c_value;
-  ftxui::Input c_commodity;
-  ftxui::Button c_save_trans;
-  ftxui::Button c_cancel_trans;
-  ftxui::Button c_from_last_trans;
-  ftxui::CheckBox c_usePreviousAccount;
-  ftxui::CheckBox c_removeAccountLeaf;
-  ftxui::List<entry_trans_dto> c_transactions;
-  ftxui::Menu c_log;
-  ftxui::Pixel c_space;
+  std::shared_ptr<ButtonExt> c_save_entry = Make<ButtonExt>();
+  std::shared_ptr<ButtonExt> c_clear_form = Make<ButtonExt>();
+  std::shared_ptr<ButtonExt> c_quit = Make<ButtonExt>();
+  std::shared_ptr<DateInput> c_date = Make<DateInput>();
+
+  std::wstring c_title_content;
+  Component c_title = Input(&c_title_content, "title");
+
+  std::wstring c_account_content;
+  Component c_account = Input(&c_account_content, "account");
+
+  std::shared_ptr<MoneyInput> c_value = Make<MoneyInput>();
+
+  std::wstring c_commodity_content;
+  Component c_commodity= Input(&c_commodity_content, "commodity");
+
+  std::shared_ptr<ButtonExt> c_save_trans = Make<ButtonExt>();
+  std::shared_ptr<ButtonExt> c_cancel_trans = Make<ButtonExt>();
+  std::shared_ptr<ButtonExt> c_from_last_trans = Make<ButtonExt>();
+
+  bool c_usePreviousAccountState = true;
+  Component c_usePreviousAccount =
+      Checkbox("Use Previous Account", &c_usePreviousAccountState);
+
+  bool c_removeAccountLeafState = true;
+  Component c_removeAccountLeaf =
+      Checkbox("Remove Account leaf", &c_removeAccountLeafState);
+
+  std::shared_ptr<List<entry_trans_dto>> c_transactions =
+      Make<List<entry_trans_dto>>();
+  Pixel c_space;
 };
 } // namespace ltui
 

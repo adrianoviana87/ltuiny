@@ -1,14 +1,16 @@
 #ifndef LTUI_LIST_H
 #define LTUI_LIST_H
 
-#include "ftxui/component/component.hpp"
-#include "crosscutting.hpp"
 #include <algorithm>
+#include <ftxui/component/event.hpp>
 #include <memory>
+#include "crosscutting.hpp"
+#include "ftxui/component/component.hpp"
 
 namespace ftxui {
-template <class t_item> class List : public Component {
-public:
+template <class t_item>
+class List : public ComponentBase {
+ public:
   List() = default;
   List(const List &) = default;
   List(List &&) NOEXCEPT = default;

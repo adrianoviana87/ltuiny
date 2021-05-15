@@ -2,26 +2,32 @@
 #include <iostream>
 #include <memory>
 
+#include "ftxui/component/component.hpp"
+#include "ftxui/component/menu.hpp"
+
 using namespace std;
 
 namespace ltui {
+
+std::vector<std::wstring> menu_entries = {
+    L"Add Entry",
+    L"Quit",
+};
 home_view::home_view(std::shared_ptr<router> router)
-    : view(), _router(std::move(router)),
-      _container(ftxui::Container::Vertical()), _menu() {}
+    : view(), _router(std::move(router)) {}
 
 void home_view::initialize_ui() {
-  _menu.entries.emplace_back(L"Add Entry");
-  _menu.entries.emplace_back(L"Quit");
-  _menu.on_enter = [&]() { this->on_menu_selected(this->_menu.selected); };
-  _container.Add(&_menu);
-  Add(&_container);
+  auto menu = ftxui::Menu(&menu_entries, &menu_selected);
+  ftxui::MenuBase::From(menu)->on_enter = [&] { this->on_menu_selected(); };
+  Add(menu);
 }
 
-void home_view::on_menu_selected(int option) {
-  if (option == 0) {
+void home_view::on_menu_selected() {
+  if (menu_selected == 0) {
     _router->navigate("ledger_entry/new", std::any());
   } else {
     close();
   }
 }
-} // namespace ltui
+
+}  // namespace ltui

@@ -4,7 +4,7 @@
 #include "ftxui/component/component.hpp"
 
 namespace ftxui {
-class MaskInputBase : public Component {
+class MaskInputBase : public ComponentBase {
 public:
   // Constructor.
   MaskInputBase() = default;

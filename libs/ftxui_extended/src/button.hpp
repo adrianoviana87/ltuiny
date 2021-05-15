@@ -5,16 +5,18 @@
 #include <string>
 
 namespace ftxui {
-class Button : public Component {
-public:
-  // Constructor.
-  Button() = default;
-  Button(const Button &) = default;
-  Button(Button &&) = default;
-  ~Button() override = default;
 
-  Button &operator=(const Button &) = default;
-  Button &operator=(Button &&) = default;
+/// XXX consider using ftxui::Button() instead.
+class ButtonExt : public ComponentBase {
+ public:
+  // Constructor.
+  ButtonExt() = default;
+  ButtonExt(const ButtonExt &) = default;
+  ButtonExt(ButtonExt &&) = default;
+  ~ButtonExt() override = default;
+
+  ButtonExt &operator=(const ButtonExt &) = default;
+  ButtonExt &operator=(ButtonExt &&) = default;
 
   void set_content(Element val);
   void set_style(Decorator val);
