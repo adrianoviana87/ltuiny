@@ -1,8 +1,10 @@
 #include "./maskinputbase.hpp"
-#include "ftxui/component/input.hpp"
-#include "ftxui/screen/string.hpp"
+
 #include <algorithm>
 #include <memory>
+#include "ftxui/component/event.hpp"
+#include "ftxui/component/input.hpp"
+#include "ftxui/screen/string.hpp"
 
 namespace ftxui {
 
@@ -115,4 +117,3 @@ void MaskInputBase::add_char(wchar_t ch) {
 }
 
 }  // namespace ftxui
-

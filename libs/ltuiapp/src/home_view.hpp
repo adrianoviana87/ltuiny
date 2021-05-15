@@ -4,9 +4,6 @@
 #include "./router.hpp"
 #include "./view.hpp"
 
-#include "ftxui/component/container.hpp"
-#include "ftxui/component/menu.hpp"
-
 #include <memory>
 
 namespace ltui {
@@ -17,10 +14,10 @@ protected:
   void initialize_ui() override;
 
 private:
-  void on_menu_selected(int option);
+  void on_menu_selected();
   std::shared_ptr<router> _router;
-  ftxui::Container _container;
-  ftxui::Menu _menu;
+
+  int menu_selected = 0;
 };
 } // namespace ltui
 

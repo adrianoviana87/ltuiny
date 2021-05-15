@@ -7,7 +7,7 @@
 #include <functional>
 
 namespace ltui {
-class view : public ftxui::Component {
+class view : public ftxui::ComponentBase {
 public:
   view() = default;
   view(const view&) = default;
